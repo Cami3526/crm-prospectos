@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KLEIDY  - Seguimiento de Prospectos</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <div class="background-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <div class="app-container">
+    
+    <header class="main-header glass-card">
+      <div class="brand">
+        <h1>KLEIDY  CRM</h1>
+        <p>Control y seguimiento estratégico de prospectos</p>
+      </div>
+      <div class="alert-banner" id="alertBanner">
+        <span class="alert-icon">🔔</span>
+        <div class="alert-info">
+          <strong id="alertCount">0 pendientes</strong>
+          <span id="alertDetail">Cargando alertas...</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-grid">
+      
+      <!-- Formulario -->
+      <section class="form-section glass-card">
+        <h2 id="formTitle">Nuevo Prospecto</h2>
+        <form id="prospectForm">
+          <input type="hidden" id="prospectId">
+          
+          <div class="form-group">
+            <label for="nombre">Nombre Completo</label>
+            <input type="text" id="nombre" required placeholder="Ej. Carlos Mendoza">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="telefono">WhatsApp / Teléfono</label>
+              <input type="text" id="telefono" placeholder="+57 300 000 0000">
+            </div>
+            <div class="form-group">
+              <label for="ciudad">Ciudad / País</label>
+              <input type="text" id="ciudad" placeholder="Ej. Bogotá">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="canal">Canal de Contacto</label>
+              <select id="canal">
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Llamada">Llamada</option>
+                <option value="Evento">Evento Presencial</option>
+                <option value="Referido">Referido</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="vertical">Vertical de Interés</label>
+              <select id="vertical">
+                <option value="Negocio Global">Negocio Global</option>
+                <option value="SMA (Trading)">SMA (Trading)</option>
+                <option value="BDVacations">BDVacations (Viajes)</option>
+                <option value="BOS Club">BOS Club</option>
+                <option value="Bienestar">Bienestar</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="etapa">Etapa del Embudo</label>
+              <select id="etapa">
+                <option value="Contacto Inicial">1. Contacto Inicial</option>
+                <option value="Presentacion">2. Presentación / Zoom</option>
+                <option value="Seguimiento">3. Seguimiento / Objeciones</option>
+                <option value="Cierre">4. Cierre / Inscripción</option>
+                <option value="Activo">5. Cliente / BA Activo</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="prioridad">Prioridad</label>
+              <select id="prioridad">
+                <option value="Alta">Alta 🔥</option>
+                <option value="Media" selected>Media ⚡</option>
+                <option value="Baja">Baja 🌱</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fechaSeguimiento">Próximo Seguimiento (Fecha y Hora)</label>
+            <input type="datetime-local" id="fechaSeguimiento">
+          </div>
+
+          <div class="form-group">
+            <label for="notas">Notas / Puntos de dolor</label>
+            <textarea id="notas" rows="3" placeholder="Intereses, objeciones, horarios preferidos..."></textarea>
+          </div>
+
+          <div class="button-group">
+            <button type="submit" class="btn btn-primary" id="btnSave">Guardar Prospecto</button>
+            <button type="button" class="btn btn-secondary" id="btnCancel" style="display: none;">Cancelar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Lista de Prospectos -->
+      <section class="list-section">
+        
+        <div class="controls-bar glass-card">
+          <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre, teléfono o ciudad...">
+          <div class="filter-tabs" id="filterTabs">
+            <button class="tab active" data-filter="Todos">Todos</button>
+            <button class="tab" data-filter="Contacto Inicial">Contacto</button>
+            <button class="tab" data-filter="Presentacion">Presentación</button>
+            <button class="tab" data-filter="Seguimiento">Seguimiento</button>
+            <button class="tab" data-filter="Cierre">Cierre</button>
+            <button class="tab" data-filter="Activo">Activos</button>
+          </div>
+        </div>
+
+        <div class="prospects-grid" id="prospectsGrid">
+          <!-- Tarjetas renderizadas con JavaScript -->
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
